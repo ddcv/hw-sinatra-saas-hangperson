@@ -38,6 +38,9 @@ class HangpersonApp < Sinatra::Base
   # If a guess is repeated, set flash[:message] to "You have already used that letter."
   # If a guess is invalid, set flash[:message] to "Invalid guess."
   post '/guess' do
+    if :guess.empty?
+	flash[:message] = "Invalid guess."
+    end
     letter = params[:guess].to_s[0]
     ### YOUR CODE HERE ###
     unless @game.guesses.downcase.include? letter.downcase or @game.wrong_guesses.downcase.include? letter.downcase
