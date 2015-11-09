@@ -53,8 +53,11 @@ class HangpersonGame
 
 
   def check_win_or_lose
+
 	if self.wrong_guesses.length >=7
 		return :lose
+	elsif self.guesses.empty?
+		return :play
 	elsif /^[#{self.guesses}]+$/i.match(word).nil? == false
 		return :win
 	else
