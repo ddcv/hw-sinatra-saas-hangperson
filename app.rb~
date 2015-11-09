@@ -38,7 +38,7 @@ class HangpersonApp < Sinatra::Base
   # If a guess is repeated, set flash[:message] to "You have already used that letter."
   # If a guess is invalid, set flash[:message] to "Invalid guess."
   post '/guess' do
-    if :guess.empty? || :guess.nil?
+    if params[:guess].empty? || params[:guess].nil?
 	flash[:message] = "Invalid guess."
 	redirect '/show'
     end
@@ -64,24 +64,28 @@ class HangpersonApp < Sinatra::Base
   get '/show' do
     ### YOUR CODE HERE ###
     if @game.check_win_or_lose == :win
-	erb :win
-#	redirect '/win'
+#	erb :win
+	redirect '/win'
     elsif @game.check_win_or_lose == :lose
-	erb :lose
-#	redirect '/lose'
+#	erb :lose
+	redirect '/lose'
     else
     	erb :show # You may change/remove this line
     end
   end
   
-#  get '/win' do
+  get '/win' do
     ### YOUR CODE HERE ###
-#    erb :win # You may change/remove this line
-#  end
+    if @game.check_win_or_lose == :win
+    	erb :win # You may change/remove this line 
+    end
+  end
   
-#  get '/lose' do
+  get '/lose' do
     ### YOUR CODE HERE ###
-#    erb :lose # You may change/remove this line
-#  end
+    if @game.check_win_or_lose == :lose
+    	erb :lose # You may change/remove this line
+    end
+  end
   
 end
